@@ -29,61 +29,63 @@
     <div class="app-shell">
       <aside class="sidebar">
         <header class="sidebar-header">
-          <p class="kicker">Helsinki Map Draft</p>
-          <h1>Explore The City</h1>
-          <p class="subtitle">Search, filter, and add your own points.</p>
+          <p class="kicker">Черновой вариант карты Хельсинки</p>
+          <h1>Исследуйте город</h1>
+          <p class="subtitle">
+            Ищите, фильтруйте и добавляйте свои собственные точки.
+          </p>
           <nav class="sidebar-nav" aria-label="Sidebar navigation">
-            <a class="nav-link" href="#locationSection">Locations</a>
-            <a class="nav-link" href="#formSection">Add Point</a>
+            <a class="nav-link" href="#locationSection">Локации</a>
+            <a class="nav-link" href="#formSection">Добавить точку</a>
           </nav>
         </header>
 
         <section class="controls">
-          <label for="searchInput">Search</label>
+          <label for="searchInput">Искать</label>
           <input
             id="searchInput"
             type="search"
-            placeholder="Try: sauna, market, library..."
+            placeholder="Попробуйте: сауна, рынок, библиотека..."
           />
 
-          <p class="control-label">Category</p>
+          <p class="control-label">Категории</p>
           <div id="categoryChips" class="category-chips" role="tablist"></div>
         </section>
 
         <section class="list-section" id="locationSection">
           <div class="list-topline">
-            <h2>Locations</h2>
+            <h2>Локации</h2>
             <span id="resultsCount">0</span>
           </div>
           <div id="locationList" class="location-list"></div>
         </section>
 
         <section class="form-section" id="formSection">
-          <h2>Add New Point</h2>
+          <h2>Добавить новую точну</h2>
           <form id="pointForm" class="point-form" novalidate>
-            <label for="pointName">Name</label>
+            <label for="pointName">Имя</label>
             <input
               id="pointName"
               name="name"
               type="text"
               maxlength="90"
               required
-              placeholder="Point name"
+              placeholder="Имя точки"
             />
 
-            <label for="pointDescription">Description</label>
+            <label for="pointDescription">Описание</label>
             <textarea
               id="pointDescription"
               name="description"
               maxlength="220"
               rows="3"
               required
-              placeholder="Short description"
+              placeholder="Небольшое описание"
             ></textarea>
 
             <div class="coords-row">
               <div>
-                <label for="pointLat">Latitude</label>
+                <label for="pointLat">Широта</label>
                 <input
                   id="pointLat"
                   name="latitude"
@@ -94,7 +96,7 @@
                 />
               </div>
               <div>
-                <label for="pointLng">Longitude</label>
+                <label for="pointLng">Долгота</label>
                 <input
                   id="pointLng"
                   name="longitude"
@@ -112,20 +114,20 @@
               type="button"
               aria-pressed="false"
             >
-              Pick Coordinates From Map
+              Выбрать место на карте
             </button>
 
-            <label for="pointCategory">Category (optional)</label>
+            <label for="pointCategory">Категория (Желательно)</label>
             <input
               id="pointCategory"
               name="category"
               type="text"
               maxlength="40"
-              placeholder="Example: Viewpoint"
+              placeholder="Например: Магазин, красивый вид и т.п..."
             />
 
             <p id="formFeedback" class="form-feedback" aria-live="polite"></p>
-            <button class="primary-button" type="submit">Create Point</button>
+            <button class="primary-button" type="submit">Создать точку</button>
           </form>
         </section>
       </aside>

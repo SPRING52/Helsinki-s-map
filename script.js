@@ -5,73 +5,74 @@ const DEFAULT_ZOOM = 12;
 const BASE_POINTS = [
   {
     id: "kauppatori",
-    name: "Market Square",
-    category: "Food",
+    name: "Рыночная площадь",
+    category: "Еда",
     address: "Etelaranta, 00170 Helsinki",
-    blurb: "Harbor market with local snacks, coffee, and sea views.",
+    blurb: "Рынок в гавани с местными закусками, кофе и видом на море.",
     coords: [60.1674, 24.9525],
     source: "seed",
   },
   {
     id: "suomenlinna",
-    name: "Suomenlinna",
-    category: "Historic",
+    name: "Суоменлинна",
+    category: "История",
     address: "Suomenlinna C 40, Helsinki",
-    blurb: "Sea fortress islands with museums and walking paths.",
+    blurb: "Острова с морскими крепостями, музеями и прогулочными тропами.",
     coords: [60.1464, 24.9836],
     source: "seed",
   },
   {
     id: "loyly",
-    name: "Loyly Sauna",
-    category: "Wellness",
+    name: "Сауна Loyly",
+    category: "Здоровье",
     address: "Hernesaarenranta 4, Helsinki",
-    blurb: "Public sauna and restaurant on the Baltic shoreline.",
+    blurb: "Общественная сауна и ресторан на берегу Балтийского моря.",
     coords: [60.1566, 24.9217],
     source: "seed",
   },
   {
     id: "oodi",
-    name: "Oodi Library",
-    category: "Culture",
+    name: "Библиотека Oodi",
+    category: "Культура",
     address: "Toolonlahdenkatu 4, Helsinki",
-    blurb: "Flagship public library and event venue near Kansalaistori.",
+    blurb:
+      "Флагманская публичная библиотека и место проведения мероприятий недалеко от Кансалайстори.",
     coords: [60.1738, 24.9383],
     source: "seed",
   },
   {
     id: "kiasma",
-    name: "Kiasma Museum",
-    category: "Culture",
+    name: "Музей Kiasma",
+    category: "Культура",
     address: "Mannerheiminaukio 2, Helsinki",
-    blurb: "Contemporary art museum in central Helsinki.",
+    blurb: "Музей современного искусства в центре Хельсинки.",
     coords: [60.1714, 24.9365],
     source: "seed",
   },
   {
     id: "allas",
-    name: "Allas Sea Pool",
-    category: "Wellness",
+    name: "Морской бассейн Allas",
+    category: "Здоровье",
     address: "Katajanokanlaituri 2a, Helsinki",
-    blurb: "Outdoor pools and saunas with harbor skyline views.",
+    blurb: "Открытые бассейны и сауны с видом на горизонт гавани.",
     coords: [60.1678, 24.9588],
     source: "seed",
   },
   {
     id: "esplanadi",
-    name: "Esplanadi Park",
-    category: "Outdoor",
+    name: "Парк Эспланади",
+    category: "На открытом воздухе",
     address: "Pohjoisesplanadi, Helsinki",
-    blurb: "Central promenade for strolls, events, and cafes.",
+    blurb: "Центральная набережная для прогулок, мероприятий и кафе.",
     coords: [60.1673, 24.9466],
     source: "seed",
   },
   {
     id: "kallio",
-    name: "Kallio District",
-    category: "Neighborhood",
+    name: "Район Каллио",
+    category: "Окрестности",
     address: "Kallio, Helsinki",
-    blurb: "Lively district with independent bars and food spots.",
+    blurb: "Оживленный район с независимыми барами и ресторанами.",
     coords: [60.1842, 24.9503],
     source: "seed",
   },
@@ -95,7 +96,7 @@ const dom = {
 const appState = {
   points: [],
   filteredPoints: [],
-  activeCategory: "All",
+  activeCategory: "Все",
   searchTerm: "",
   selectedPointId: null,
   mapCoordinatePicking: false,
@@ -196,7 +197,7 @@ function handlePointFormSubmit(event) {
 
   appState.searchTerm = "";
   dom.searchInput.value = "";
-  appState.activeCategory = "All";
+  appState.activeCategory = "Все";
   renderCategoryChips();
   applyFilters({ fitMap: true });
   focusPoint(point.id, { flyTo: true, openPopup: true });
@@ -227,7 +228,10 @@ function setMapCoordinatePicking(enabled) {
   document.body.classList.toggle("is-picking-coords", enabled);
 
   if (enabled) {
-    setFormFeedback("Click any location on the map to fill coordinates.", "info");
+    setFormFeedback(
+      "Click any location on the map to fill coordinates.",
+      "info",
+    );
   }
 }
 
@@ -240,11 +244,19 @@ function validatePointForm(values) {
     return "Description must contain at least 6 characters.";
   }
 
-  if (!Number.isFinite(values.latitude) || values.latitude < -90 || values.latitude > 90) {
+  if (
+    !Number.isFinite(values.latitude) ||
+    values.latitude < -90 ||
+    values.latitude > 90
+  ) {
     return "Latitude must be a valid number between -90 and 90.";
   }
 
-  if (!Number.isFinite(values.longitude) || values.longitude < -180 || values.longitude > 180) {
+  if (
+    !Number.isFinite(values.longitude) ||
+    values.longitude < -180 ||
+    values.longitude > 180
+  ) {
     return "Longitude must be a valid number between -180 and 180.";
   }
 
@@ -259,7 +271,11 @@ function setFormFeedback(message, tone) {
 function applyFilters(options = { fitMap: false }) {
   appState.filteredPoints = getFilteredPoints();
 
-  if (!appState.filteredPoints.some((point) => point.id === appState.selectedPointId)) {
+  if (
+    !appState.filteredPoints.some(
+      (point) => point.id === appState.selectedPointId,
+    )
+  ) {
     appState.selectedPointId = appState.filteredPoints[0]?.id ?? null;
   }
 
@@ -276,7 +292,8 @@ function applyFilters(options = { fitMap: false }) {
 function getFilteredPoints() {
   return appState.points.filter((point) => {
     const matchesCategory =
-      appState.activeCategory === "All" || point.category === appState.activeCategory;
+      appState.activeCategory === "Все" ||
+      point.category === appState.activeCategory;
     const matchesSearch =
       point.name.toLowerCase().includes(appState.searchTerm) ||
       point.address.toLowerCase().includes(appState.searchTerm) ||
@@ -288,7 +305,7 @@ function getFilteredPoints() {
 
 function renderCategoryChips() {
   const categories = [
-    "All",
+    "Все",
     ...new Set(appState.points.map((point) => point.category).filter(Boolean)),
   ];
 
@@ -372,7 +389,8 @@ function createMarker(point) {
   });
 
   marker.on("mouseout", () => {
-    const styleMode = point.id === appState.selectedPointId ? "selected" : "default";
+    const styleMode =
+      point.id === appState.selectedPointId ? "selected" : "default";
     applyMarkerStyle(marker, styleMode);
   });
 
@@ -406,7 +424,8 @@ function updateMarkerStyles() {
       continue;
     }
 
-    const styleMode = pointId === appState.selectedPointId ? "selected" : "default";
+    const styleMode =
+      pointId === appState.selectedPointId ? "selected" : "default";
     applyMarkerStyle(marker, styleMode);
   }
 }
@@ -454,7 +473,9 @@ function fitMapToFilteredPoints() {
     return;
   }
 
-  const bounds = L.latLngBounds(appState.filteredPoints.map((point) => point.coords));
+  const bounds = L.latLngBounds(
+    appState.filteredPoints.map((point) => point.coords),
+  );
   map.fitBounds(bounds, { padding: [36, 36] });
 }
 
@@ -506,9 +527,7 @@ function loadCustomPoints() {
       return [];
     }
 
-    return parsed
-      .map(normalizeStoredPoint)
-      .filter((point) => point !== null);
+    return parsed.map(normalizeStoredPoint).filter((point) => point !== null);
   } catch (_error) {
     return [];
   }
@@ -529,7 +548,9 @@ function normalizeStoredPoint(rawPoint) {
     id: typeof rawPoint.id === "string" ? rawPoint.id : createPointId("point"),
     name: String(rawPoint.name || "Untitled point"),
     category: String(rawPoint.category || "Custom"),
-    address: String(rawPoint.address || `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`),
+    address: String(
+      rawPoint.address || `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`,
+    ),
     blurb: String(rawPoint.blurb || "No description provided."),
     coords: [latitude, longitude],
     source: "custom",
@@ -537,7 +558,9 @@ function normalizeStoredPoint(rawPoint) {
 }
 
 function saveCustomPoints() {
-  const customPoints = appState.points.filter((point) => point.source === "custom");
+  const customPoints = appState.points.filter(
+    (point) => point.source === "custom",
+  );
   localStorage.setItem(STORAGE_KEY, JSON.stringify(customPoints));
 }
 
