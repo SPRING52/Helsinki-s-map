@@ -388,7 +388,7 @@ body.is-picking-coords #map {
 @media (max-width: 768px) {
   .app-shell {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(48vh, 54vh) auto;
+    grid-template-rows: minmax(80vh, 40vh) auto;
   }
 
   .map-pane {
