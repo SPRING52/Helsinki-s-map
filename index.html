@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Интерактивная карта ЙО</title>
+    <meta
+      name="description"
+      content="Interactive map of Helsinki points with search, filters, and custom point creation."
+    />
+    <title>Helsinki Explorer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,29 +29,104 @@
     <div class="app-shell">
       <aside class="sidebar">
         <header class="sidebar-header">
-          <p class="kicker">Интерактивная Карта Хельсинки</p>
-          <h1>Что тут есть для посищения</h1>
-          <p class="subtitle">Ищем, фильтруем и исследуем.</p>
+          <p class="kicker">Helsinki Map Draft</p>
+          <h1>Explore The City</h1>
+          <p class="subtitle">Search, filter, and add your own points.</p>
+          <nav class="sidebar-nav" aria-label="Sidebar navigation">
+            <a class="nav-link" href="#locationSection">Locations</a>
+            <a class="nav-link" href="#formSection">Add Point</a>
+          </nav>
         </header>
 
         <section class="controls">
-          <label for="searchInput">Искать</label>
+          <label for="searchInput">Search</label>
           <input
             id="searchInput"
             type="search"
-            placeholder="Попробуй: Сауна, еда, библиотека..."
+            placeholder="Try: sauna, market, library..."
           />
 
-          <p class="control-label">Категории</p>
+          <p class="control-label">Category</p>
           <div id="categoryChips" class="category-chips" role="tablist"></div>
         </section>
 
-        <section class="list-section">
+        <section class="list-section" id="locationSection">
           <div class="list-topline">
-            <h2>Локации</h2>
+            <h2>Locations</h2>
             <span id="resultsCount">0</span>
           </div>
           <div id="locationList" class="location-list"></div>
+        </section>
+
+        <section class="form-section" id="formSection">
+          <h2>Add New Point</h2>
+          <form id="pointForm" class="point-form" novalidate>
+            <label for="pointName">Name</label>
+            <input
+              id="pointName"
+              name="name"
+              type="text"
+              maxlength="90"
+              required
+              placeholder="Point name"
+            />
+
+            <label for="pointDescription">Description</label>
+            <textarea
+              id="pointDescription"
+              name="description"
+              maxlength="220"
+              rows="3"
+              required
+              placeholder="Short description"
+            ></textarea>
+
+            <div class="coords-row">
+              <div>
+                <label for="pointLat">Latitude</label>
+                <input
+                  id="pointLat"
+                  name="latitude"
+                  type="number"
+                  step="0.00001"
+                  required
+                  placeholder="60.17000"
+                />
+              </div>
+              <div>
+                <label for="pointLng">Longitude</label>
+                <input
+                  id="pointLng"
+                  name="longitude"
+                  type="number"
+                  step="0.00001"
+                  required
+                  placeholder="24.94000"
+                />
+              </div>
+            </div>
+
+            <button
+              id="pickCoordsButton"
+              class="secondary-button"
+              type="button"
+              aria-pressed="false"
+            >
+              Pick Coordinates From Map
+            </button>
+
+            <label for="pointCategory">Category (optional)</label>
+            <input
+              id="pointCategory"
+              name="category"
+              type="text"
+              maxlength="40"
+              placeholder="Example: Viewpoint"
+            />
+
+            <p id="formFeedback" class="form-feedback" aria-live="polite"></p>
+            <button class="primary-button" type="submit">Create Point</button>
+          </form>
         </section>
       </aside>
 
