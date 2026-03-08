@@ -390,9 +390,13 @@ body.is-picking-coords #map {
 }
 
 @media (max-width: 768px) {
+  body {
+    overflow: hidden;
+  }
+
   .app-shell {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(80vh, 40vh) auto;
+    grid-template-rows: minmax(30vh, 50vh) auto;
   }
 
   .map-pane {
@@ -400,7 +404,11 @@ body.is-picking-coords #map {
   }
 
   .sidebar {
-    max-height: none;
+    max-height: 45vh;
+  }
+
+  .list-section {
+    min-height: 70%;
   }
 
   .form-section {
