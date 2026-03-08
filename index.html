@@ -1,12 +1,62 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Карта Хельсинки ЙО</title>
+    <title>Helsinki Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      defer
+    ></script>
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <h2>Second change</h2>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <header class="sidebar-header">
+          <p class="kicker">Helsinki Map Draft</p>
+          <h1>Explore The City</h1>
+          <p class="subtitle">
+            Search spots, filter by type, and jump to locations directly on the
+            map.
+          </p>
+        </header>
+
+        <section class="controls">
+          <label for="searchInput">Search</label>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Try: sauna, market, library..."
+          />
+
+          <p class="control-label">Category</p>
+          <div id="categoryChips" class="category-chips" role="tablist"></div>
+        </section>
+
+        <section class="list-section">
+          <div class="list-topline">
+            <h2>Locations</h2>
+            <span id="resultsCount">0</span>
+          </div>
+          <div id="locationList" class="location-list"></div>
+        </section>
+      </aside>
+
+      <main class="map-pane">
+        <div id="map" aria-label="Map of Helsinki locations"></div>
+      </main>
+    </div>
   </body>
 </html>
