@@ -1,66 +1,67 @@
 const locations = [
   {
     id: "kauppatori",
-    name: "Market Square",
-    category: "Food",
+    name: "Рынок",
+    category: "Еда",
     address: "Etelaranta, 00170 Helsinki",
-    blurb: "Harbor market with local snacks, coffee, and sea views.",
+    blurb: "Гавань с местными закусками, кофе и видом на море.",
     coords: [60.1674, 24.9525],
   },
   {
     id: "suomenlinna",
-    name: "Suomenlinna",
-    category: "Historic",
+    name: "Суоменлинна",
+    category: "Историчность",
     address: "Suomenlinna C 40, Helsinki",
-    blurb: "Sea fortress islands with museums and walking paths.",
+    blurb: "Острова с морскими крепостями, музеями и прогулочными тропами.",
     coords: [60.1464, 24.9836],
   },
   {
     id: "loyly",
-    name: "Loyly Sauna",
-    category: "Wellness",
+    name: "Баня Loyly",
+    category: "Здоровье",
     address: "Hernesaarenranta 4, Helsinki",
-    blurb: "Public sauna and restaurant on the Baltic shoreline.",
+    blurb: "Общественная сауна и ресторан на берегу Балтийского моря.",
     coords: [60.1566, 24.9217],
   },
   {
     id: "oodi",
-    name: "Oodi Library",
-    category: "Culture",
+    name: "Библиотека Ооди",
+    category: "Культура",
     address: "Toolonlahdenkatu 4, Helsinki",
-    blurb: "Flagship public library and event venue near Kansalaistori.",
+    blurb:
+      "Флагманская публичная библиотека и место проведения мероприятий рядом с Kansalaistori.",
     coords: [60.1738, 24.9383],
   },
   {
     id: "kiasma",
-    name: "Kiasma Museum",
-    category: "Culture",
+    name: "Музей Kiasma",
+    category: "Культура",
     address: "Mannerheiminaukio 2, Helsinki",
-    blurb: "Contemporary art museum in central Helsinki.",
+    blurb: "Музей современного искусства в центре Хельсинки.",
     coords: [60.1714, 24.9365],
   },
   {
     id: "allas",
-    name: "Allas Sea Pool",
-    category: "Wellness",
+    name: "Басейн Allas",
+    category: "Здоровье",
     address: "Katajanokanlaituri 2a, Helsinki",
-    blurb: "Outdoor pools and saunas with harbor skyline views.",
+    blurb: "Открытые бассейны и сауны с видом на горизонт гавани.",
     coords: [60.1678, 24.9588],
   },
   {
     id: "esplanadi",
-    name: "Esplanadi Park",
-    category: "Outdoor",
+    name: "Парк Esplanadi",
+    category: "На улице",
     address: "Pohjoisesplanadi, Helsinki",
-    blurb: "Central promenade for strolls, events, and cafes.",
+    blurb: "Центральная набережная для прогулок, мероприятий и кафе.",
     coords: [60.1673, 24.9466],
   },
   {
     id: "kallio",
-    name: "Kallio District",
-    category: "Neighborhood",
+    name: "Район Каллио",
+    category: "Районы",
     address: "Kallio, Helsinki",
-    blurb: "Lively district with independent bars and food spots.",
+    blurb: "Оживленный район с независимыми барами и ресторанами.",
     coords: [60.1842, 24.9503],
   },
 ];
@@ -89,12 +90,15 @@ const markersById = new Map();
 for (const location of locations) {
   const marker = L.marker(location.coords).addTo(map);
   marker.bindPopup(
-    `<strong>${location.name}</strong><br>${location.category}<br>${location.address}`
+    `<strong>${location.name}</strong><br>${location.category}<br>${location.address}`,
   );
   markersById.set(location.id, marker);
 }
 
-const categories = ["All", ...new Set(locations.map((location) => location.category))];
+const categories = [
+  "Все",
+  ...new Set(locations.map((location) => location.category)),
+];
 
 function createCategoryChips() {
   categoryChips.innerHTML = "";
@@ -156,7 +160,7 @@ function renderList(filtered) {
   resultsCount.textContent = `${filtered.length} shown`;
 
   if (!filtered.length) {
-    locationList.innerHTML = `<p class="empty-state">No locations match this filter.</p>`;
+    locationList.innerHTML = `<p class="empty-state">Ничего не найдено по данному фильтру.</p>`;
     return;
   }
 
