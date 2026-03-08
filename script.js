@@ -328,7 +328,16 @@ function renderCategoryChips() {
 }
 
 function renderLocationList() {
-  dom.resultsCount.textContent = `${appState.filteredPoints.length} shown`;
+  if (appState.filteredPoints.length === 1) {
+    dom.resultsCount.textContent = `${appState.filteredPoints.length} Место`;
+  } else if (
+    appState.filteredPoints.length > 1 &&
+    appState.filteredPoints.length < 5
+  ) {
+    dom.resultsCount.textContent = `${appState.filteredPoints.length} Места`;
+  } else if (appState.filteredPoints.length >= 5) {
+    dom.resultsCount.textContent = `${appState.filteredPoints.length} Мест`;
+  }
 
   if (!appState.filteredPoints.length) {
     dom.locationList.innerHTML =
